@@ -1,0 +1,37 @@
+from operator import neg
+
+def cripto(mode, ch, txt):
+    
+    if mode == 'Descriptografar':
+        ch = neg(ch)
+    
+    cripto = []
+    for letra in txt:
+        if letra.isupper():
+            cripto.append(chr((ord(letra) + ch - 65) % 26 + 65))
+        elif letra.islower():
+            cripto.append(chr((ord(letra) + ch - 97) % 26 + 97))
+        else:
+            cripto.append(letra)
+    return cripto
+
+mode = ''
+
+print('O que deseja fazer? \n[ 1 ] Criptografar \n[ 2 ] Descriptografar')
+escolha = int(input('  >>>>> '))
+
+match escolha:
+    case 1:
+        mode = 'Criptografar'
+        chave = int(input('Escolha uma chave entre 1 e 26: '))
+        palavra = str(input('Digite a palavra que deseja criptografar: '))
+        print(f'\nA {palavra} criptografada com a chave {chave} fica: ')
+        for letra in cripto(mode, chave, palavra):
+            print(letra, end='')
+    case 2:
+        mode = 'Descriptografar'
+        chave = int(input('Escolha uma chave entre 1 e 26: '))
+        palavra = str(input('Digite a palavra que deseja descriptografar: '))
+        print(f'A palavra {palavra} descriptografada fica:')
+        for letra in cripto(mode, chave, palavra):
+            print(letra, end='')
